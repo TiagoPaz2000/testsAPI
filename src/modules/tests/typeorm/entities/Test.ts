@@ -20,6 +20,9 @@ class Test {
   @Column()
   time_limit: number;
 
+  @Column()
+  user_id: number;
+
   @CreateDateColumn()
   created_at: Date;
 

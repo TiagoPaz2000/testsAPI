@@ -7,6 +7,7 @@ interface IRequest {
   title: string;
   categorie: string;
   timeLimit: number;
+  userId: number;
 }
 
 class CreateQuestionService {
@@ -14,6 +15,7 @@ class CreateQuestionService {
     title,
     categorie,
     timeLimit,
+    userId,
   }: IRequest): Promise<Test> {
     const testRepository = getCustomRepository(TestRepository);
 
@@ -26,6 +28,7 @@ class CreateQuestionService {
       title,
       categorie,
       time_limit: timeLimit,
+      user_id: userId,
     });
 
     await testRepository.save(testCreated);

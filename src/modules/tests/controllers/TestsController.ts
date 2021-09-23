@@ -8,6 +8,7 @@ class QuestionsController {
     next: NextFunction,
   ): Promise<Response | undefined> {
     const { title, categorie, timeLimit } = req.body;
+    const { id } = req.user;
 
     try {
       const createTest = new CreateTestService();
@@ -16,6 +17,7 @@ class QuestionsController {
         title,
         categorie,
         timeLimit,
+        userId: +id,
       });
 
       return res.status(201).json(testCreated);
