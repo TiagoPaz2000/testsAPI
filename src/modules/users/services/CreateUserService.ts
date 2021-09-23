@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError';
 import { hash } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
-import User from '../typeorm/entities/User';
 import UserRepository from '../typeorm/repositories/UserRepository';
+import tokenSign from '@shared/token/token';
 
 interface IRequest {
   name: string;
@@ -10,14 +10,26 @@ interface IRequest {
   password: string;
 }
 
+interface IResponse {
+  user: {
+    name: string;
+    email: string;
+    id: number;
+  };
+  token: string;
+}
+
 class CreateUserService {
-  public async execute({ name, email, password }: IRequest): Promise<User> {
+  public async execute({
+    name,
+    email,
+    password,
+  }: IRequest): Promise<IResponse> {
     const userRepository = getCustomRepository(UserRepository);
 
-    const userExists = await userRepository.findByEmail(email);
+    const user = await userRepository.findByEmail(email);
 
-    if (userExists)
-      throw new AppError('There is already one test with this name');
+    if (user) throw new AppError('This email already used');
 
     const encryptedPassword = await hash(password, 8);
 
@@ -30,7 +42,13 @@ class CreateUserService {
 
     await userRepository.save(userCreated);
 
-    return userCreated;
+    const token = tokenSign({
+      name: userCreated.name,
+      email: userCreated.email,
+      id: userCreated.id,
+    });
+
+    return { user: { name, email, id: userCreated.id }, token };
   }
 }
 
