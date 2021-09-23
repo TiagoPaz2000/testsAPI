@@ -6,7 +6,7 @@ class QuestionsController {
     const { question, categorie, type, testId } = req.body;
     // const { testId } = req.params;
     const createQuestion = new CreateQuestionService();
-    console.log(question, categorie, type, testId);
+
     const questionCreated = await createQuestion.execute({
       question,
       categorie,
