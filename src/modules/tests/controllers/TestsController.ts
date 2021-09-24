@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import CreateTestService from '../services/CreateTestService';
+import DeleteTestService from '../services/DeleteTestService';
 import GetAllTestService from '../services/GetAllTestService';
 import GetOneTestService from '../services/GetOneTestService';
 import UpdateTestService from '../services/UpdateTestService';
@@ -80,9 +81,9 @@ class TestsController {
     const { id } = req.params;
     const userId = +req.user.id;
     try {
-      const getAllTests = new UpdateTestService();
+      const updateTest = new UpdateTestService();
 
-      const test = await getAllTests.execute({
+      const test = await updateTest.execute({
         id: +id,
         title,
         categorie,
@@ -90,7 +91,26 @@ class TestsController {
         userId,
       });
 
-      return res.status(204).json(test);
+      return res.status(200).json(test);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async DeleteTest(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | undefined> {
+    const { id } = req.params;
+    const userId = +req.user.id;
+
+    try {
+      const deleteTest = new DeleteTestService();
+
+      await deleteTest.execute({ id: +id, userId });
+
+      return res.status(204).json([]);
     } catch (error) {
       next(error);
     }

@@ -9,5 +9,6 @@ testRouter.post('/', middlewareAuth, testController.CreateQuestion);
 testRouter.get('/', middlewareAuth, testController.GetAllTests);
 testRouter.get('/:testId', middlewareAuth, testController.GetOneTest);
 testRouter.put('/:id', middlewareAuth, testController.UpdateTest);
+testRouter.delete('/:id', middlewareAuth, testController.DeleteTest);
 
 export default testRouter;

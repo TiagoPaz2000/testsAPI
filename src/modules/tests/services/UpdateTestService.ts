@@ -28,7 +28,7 @@ class UpdateTestService {
     const testExists = await testRepository.findOne({ where: { title } });
 
     if (testExists)
-      throw new AppError(`There is already one test with this name`);
+      throw new AppError(`There is already a test with this name`);
 
     test.title = title;
     test.categorie = categorie;

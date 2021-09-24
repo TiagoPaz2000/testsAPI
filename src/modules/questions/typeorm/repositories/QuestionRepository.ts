@@ -3,14 +3,20 @@ import Question from '../entities/Question';
 
 @EntityRepository(Question)
 class QuestionRepository extends Repository<Question> {
+  public async findById(id: number): Promise<Question | undefined> {
+    const question = this.findOne({ where: { id } });
+
+    return question;
+  }
+
   public async findByQuestionAndId(
     question: string,
-    id: number,
+    testId: number,
   ): Promise<Question | undefined> {
     const questionSelected = this.findOne({
       where: {
         question,
-        id,
+        testId,
       },
     });
 
