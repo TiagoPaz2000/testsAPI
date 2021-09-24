@@ -5,21 +5,17 @@ import AnswerRepository from '../typeorm/repositories/AnswerRepository';
 import TestRepository from '../../tests/typeorm/repositories/TestRepository';
 
 interface IRequest {
-  answer: string;
-  isRight: boolean;
   questionId: number;
   testId: number;
   userId: number;
 }
 
-class CreateAnswerService {
+class GetAnswersServices {
   public async execute({
-    answer,
-    isRight,
     questionId,
     testId,
     userId,
-  }: IRequest): Promise<Answer> {
+  }: IRequest): Promise<Answer[] | undefined> {
     const answerRepository = getCustomRepository(AnswerRepository);
     const testRepository = getCustomRepository(TestRepository);
 
@@ -28,16 +24,10 @@ class CreateAnswerService {
     if (userId !== test?.user_id)
       throw new AppError(`You don't have permission`);
 
-    const answerCreated = await answerRepository.create({
-      answer,
-      is_right: isRight,
-      question_id: questionId,
-    });
+    const answers = answerRepository.findAllByQuestionId(questionId);
 
-    await answerRepository.save(answerCreated);
-
-    return answerCreated;
+    return answers;
   }
 }
 
-export default CreateAnswerService;
+export default GetAnswersServices;

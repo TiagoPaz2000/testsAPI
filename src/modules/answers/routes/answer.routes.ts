@@ -6,9 +6,24 @@ const answerRouter = Router();
 const answersControllers = new AnswersController();
 
 answerRouter.post(
-  '/:questionId',
+  '/:testId/:questionId',
   middlewareAuth,
-  answersControllers.CreateQuestion,
+  answersControllers.CreateAnswer,
+);
+answerRouter.get(
+  '/:testId/:questionId',
+  middlewareAuth,
+  answersControllers.GetAnswer,
+);
+answerRouter.put(
+  '/:testId/:id',
+  middlewareAuth,
+  answersControllers.UpdateAnswer,
+);
+answerRouter.delete(
+  '/:testId/:id',
+  middlewareAuth,
+  answersControllers.DeleteAnswer,
 );
 
 export default answerRouter;

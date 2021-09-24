@@ -34,7 +34,7 @@ class CreateQuestionService {
     );
 
     if (questionExists)
-      throw new AppError('There is already one question with this name');
+      throw new AppError('There is already a question with this name');
 
     const questionCreated = await questionRepository.create({
       question,

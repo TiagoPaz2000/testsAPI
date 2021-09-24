@@ -5,39 +5,40 @@ import AnswerRepository from '../typeorm/repositories/AnswerRepository';
 import TestRepository from '../../tests/typeorm/repositories/TestRepository';
 
 interface IRequest {
+  id: number;
   answer: string;
   isRight: boolean;
-  questionId: number;
   testId: number;
   userId: number;
 }
 
-class CreateAnswerService {
+class UpdateAnswerService {
   public async execute({
+    id,
     answer,
     isRight,
-    questionId,
     testId,
     userId,
   }: IRequest): Promise<Answer> {
     const answerRepository = getCustomRepository(AnswerRepository);
     const testRepository = getCustomRepository(TestRepository);
 
+    const answerExists = await answerRepository.findById(id);
+
+    if (!answerExists) throw new AppError(`Don't have a answer with this id`);
+
     const test = await testRepository.findById(testId);
 
     if (userId !== test?.user_id)
       throw new AppError(`You don't have permission`);
 
-    const answerCreated = await answerRepository.create({
-      answer,
-      is_right: isRight,
-      question_id: questionId,
-    });
+    answerExists.answer = answer;
+    answerExists.is_right = isRight;
 
-    await answerRepository.save(answerCreated);
+    await answerRepository.save(answerExists);
 
-    return answerCreated;
+    return answerExists;
   }
 }
 
-export default CreateAnswerService;
+export default UpdateAnswerService;

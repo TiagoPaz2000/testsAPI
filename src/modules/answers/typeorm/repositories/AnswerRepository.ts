@@ -3,16 +3,22 @@ import Answer from '../entities/Answer';
 
 @EntityRepository(Answer)
 class AnswerRepository extends Repository<Answer> {
-  public async findByQuestionId(
-    questionId: number,
-  ): Promise<Answer | undefined> {
+  public async findById(id: number): Promise<Answer | undefined> {
     const answerSelected = this.findOne({
       where: {
-        question_id: questionId,
+        id,
       },
     });
 
     return answerSelected;
+  }
+
+  public async findAllByQuestionId(
+    questionId: number,
+  ): Promise<Answer[] | undefined> {
+    const answers = this.find({ where: { question_id: questionId } });
+
+    return answers;
   }
 }
 

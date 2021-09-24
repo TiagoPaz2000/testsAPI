@@ -1,43 +1,30 @@
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
-import Answer from '../typeorm/entities/Answer';
 import AnswerRepository from '../typeorm/repositories/AnswerRepository';
 import TestRepository from '../../tests/typeorm/repositories/TestRepository';
 
 interface IRequest {
-  answer: string;
-  isRight: boolean;
-  questionId: number;
+  id: number;
   testId: number;
   userId: number;
 }
 
-class CreateAnswerService {
-  public async execute({
-    answer,
-    isRight,
-    questionId,
-    testId,
-    userId,
-  }: IRequest): Promise<Answer> {
+class DeleteAnswerService {
+  public async execute({ id, testId, userId }: IRequest): Promise<void> {
     const answerRepository = getCustomRepository(AnswerRepository);
     const testRepository = getCustomRepository(TestRepository);
+
+    const answerExists = await answerRepository.findById(id);
+
+    if (!answerExists) throw new AppError(`Don't have a answer with this id`);
 
     const test = await testRepository.findById(testId);
 
     if (userId !== test?.user_id)
       throw new AppError(`You don't have permission`);
 
-    const answerCreated = await answerRepository.create({
-      answer,
-      is_right: isRight,
-      question_id: questionId,
-    });
-
-    await answerRepository.save(answerCreated);
-
-    return answerCreated;
+    await answerRepository.remove(answerExists);
   }
 }
 
-export default CreateAnswerService;
+export default DeleteAnswerService;

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity('answers')
-class Question {
+class Answer {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,4 +27,4 @@ class Question {
   updated_at: Date;
 }
 
-export default Question;
+export default Answer;
