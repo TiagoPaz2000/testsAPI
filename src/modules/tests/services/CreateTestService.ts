@@ -19,7 +19,7 @@ class CreateQuestionService {
   }: IRequest): Promise<Test> {
     const testRepository = getCustomRepository(TestRepository);
 
-    const testExists = await testRepository.findByTitle(title);
+    const testExists = await testRepository.findByTitleAndUserId(title, userId);
 
     if (testExists)
       throw new AppError('There is already one test with this name');
