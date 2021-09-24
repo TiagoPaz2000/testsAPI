@@ -22,6 +22,15 @@ class TestRepository extends Repository<Test> {
 
     return testSelected;
   }
+
+  public async findByIdAndUserId(
+    id: number,
+    userId: number,
+  ): Promise<Test | undefined> {
+    const testSelected = this.findOne({ where: { id, user_id: userId } });
+
+    return testSelected;
+  }
 }
 
 export default TestRepository;

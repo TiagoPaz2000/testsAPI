@@ -8,5 +8,6 @@ const testController = new TestController();
 testRouter.post('/', middlewareAuth, testController.CreateQuestion);
 testRouter.get('/', middlewareAuth, testController.GetAllTests);
 testRouter.get('/:testId', middlewareAuth, testController.GetOneTest);
+testRouter.put('/:id', middlewareAuth, testController.UpdateTest);
 
 export default testRouter;

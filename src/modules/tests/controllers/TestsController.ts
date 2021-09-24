@@ -2,8 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import CreateTestService from '../services/CreateTestService';
 import GetAllTestService from '../services/GetAllTestService';
 import GetOneTestService from '../services/GetOneTestService';
+import UpdateTestService from '../services/UpdateTestService';
 
-class QuestionsController {
+class TestsController {
   public async CreateQuestion(
     req: Request,
     res: Response,
@@ -69,6 +70,31 @@ class QuestionsController {
       next(error);
     }
   }
+
+  public async UpdateTest(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | undefined> {
+    const { title, categorie, timeLimit } = req.body;
+    const { id } = req.params;
+    const userId = +req.user.id;
+    try {
+      const getAllTests = new UpdateTestService();
+
+      const test = await getAllTests.execute({
+        id: +id,
+        title,
+        categorie,
+        timeLimit,
+        userId,
+      });
+
+      return res.status(204).json(test);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
-export default QuestionsController;
+export default TestsController;

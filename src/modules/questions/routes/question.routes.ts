@@ -6,5 +6,10 @@ const questionRouter = Router();
 const questionsController = new QuestionsController();
 
 questionRouter.post('/', middlewareAuth, questionsController.CreateQuestion);
+questionRouter.post(
+  '/:testId',
+  middlewareAuth,
+  questionsController.GetQuestions,
+);
 
 export default questionRouter;

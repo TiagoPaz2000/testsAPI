@@ -4,14 +4,16 @@ import Test from '../typeorm/entities/Test';
 import TestRepository from '../typeorm/repositories/TestRepository';
 
 interface IRequest {
+  id: number;
   title: string;
   categorie: string;
   timeLimit: number;
   userId: number;
 }
 
-class CreateTestService {
+class UpdateTestService {
   public async execute({
+    id,
     title,
     categorie,
     timeLimit,
@@ -19,22 +21,23 @@ class CreateTestService {
   }: IRequest): Promise<Test> {
     const testRepository = getCustomRepository(TestRepository);
 
-    const testExists = await testRepository.findByTitleAndUserId(title, userId);
+    const test = await testRepository.findByIdAndUserId(id, userId);
+
+    if (!test) throw new AppError(`Don't have a test with this id`);
+
+    const testExists = await testRepository.findOne({ where: { title } });
 
     if (testExists)
-      throw new AppError('There is already one test with this name');
+      throw new AppError(`There is already one test with this name`);
 
-    const testCreated = await testRepository.create({
-      title,
-      categorie,
-      time_limit: timeLimit,
-      user_id: userId,
-    });
+    test.title = title;
+    test.categorie = categorie;
+    test.time_limit = timeLimit;
 
-    await testRepository.save(testCreated);
+    await testRepository.save(test);
 
-    return testCreated;
+    return test;
   }
 }
 
-export default CreateTestService;
+export default UpdateTestService;
