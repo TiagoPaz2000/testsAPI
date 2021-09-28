@@ -16,7 +16,7 @@ class QuestionRepository extends Repository<Question> {
     const questionSelected = this.findOne({
       where: {
         question,
-        testId,
+        test: testId,
       },
     });
 

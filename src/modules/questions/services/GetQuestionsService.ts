@@ -23,7 +23,7 @@ class GetQuestionsService {
       throw new AppError(`You don't have permission`);
 
     const question = await questionRepository.find({
-      where: { testId: testId },
+      where: { test: testId },
     });
 
     return question;

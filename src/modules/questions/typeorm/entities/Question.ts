@@ -2,9 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Answer from '../../../answers/typeorm/entities/Answer';
+import Test from '../../../tests/typeorm/entities/Test';
 
 @Entity('questions')
 class Question {
@@ -20,8 +24,11 @@ class Question {
   @Column()
   type: number;
 
-  @Column()
-  testId: number;
+  @ManyToOne(() => Test, test => test.questions)
+  test: Test;
+
+  @OneToMany(() => Answer, answer => answer.question, { eager: true })
+  answers: Answer[];
 
   @CreateDateColumn()
   created_at: Date;

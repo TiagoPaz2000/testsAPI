@@ -10,8 +10,8 @@ class AnswersController {
     res: Response,
     next: NextFunction,
   ): Promise<Response | undefined> {
-    const { answer, isRight } = req.body;
-    const { testId, questionId } = req.params;
+    const { answer, isRight, question } = req.body;
+    const { testId } = req.params;
     const { id } = req.user;
 
     try {
@@ -20,7 +20,7 @@ class AnswersController {
       const answerCreated = await createAnswer.execute({
         answer,
         isRight,
-        questionId: +questionId,
+        question,
         testId: +testId,
         userId: +id,
       });

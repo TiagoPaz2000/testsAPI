@@ -23,7 +23,7 @@ export class CreateAnswers1632433641893 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'question_id',
+            name: 'questionId',
             type: 'int',
           },
           {
@@ -42,7 +42,7 @@ export class CreateAnswers1632433641893 implements MigrationInterface {
             name: 'questionId',
             referencedTableName: 'questions',
             referencedColumnNames: ['id'],
-            columnNames: ['question_id'],
+            columnNames: ['questionId'],
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
           },

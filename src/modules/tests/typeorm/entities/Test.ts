@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Question from '../../../questions/typeorm/entities/Question';
 
 @Entity('tests')
 class Test {
@@ -22,6 +24,9 @@ class Test {
 
   @Column()
   user_id: number;
+
+  @OneToMany(() => Question, question => question.test, { eager: true })
+  questions: Question[];
 
   @CreateDateColumn()
   created_at: Date;

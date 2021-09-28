@@ -7,7 +7,7 @@ import TestRepository from '../../tests/typeorm/repositories/TestRepository';
 interface IRequest {
   answer: string;
   isRight: boolean;
-  questionId: number;
+  question: any;
   testId: number;
   userId: number;
 }
@@ -16,7 +16,7 @@ class CreateAnswerService {
   public async execute({
     answer,
     isRight,
-    questionId,
+    question,
     testId,
     userId,
   }: IRequest): Promise<Answer> {
@@ -31,7 +31,7 @@ class CreateAnswerService {
     const answerCreated = await answerRepository.create({
       answer,
       is_right: isRight,
-      question_id: questionId,
+      question,
     });
 
     await answerRepository.save(answerCreated);

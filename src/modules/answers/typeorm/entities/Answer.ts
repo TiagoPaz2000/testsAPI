@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Question from '../../../questions/typeorm/entities/Question';
 
 @Entity('answers')
 class Answer {
@@ -17,8 +19,8 @@ class Answer {
   @Column()
   is_right: boolean;
 
-  @Column()
-  question_id: number;
+  @ManyToOne(() => Question, question => question.answers)
+  question: Question;
 
   @CreateDateColumn()
   created_at: Date;

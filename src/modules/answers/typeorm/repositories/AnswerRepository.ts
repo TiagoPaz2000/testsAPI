@@ -14,9 +14,9 @@ class AnswerRepository extends Repository<Answer> {
   }
 
   public async findAllByQuestionId(
-    questionId: number,
+    question: number,
   ): Promise<Answer[] | undefined> {
-    const answers = this.find({ where: { question_id: questionId } });
+    const answers = this.find({ where: { question } });
 
     return answers;
   }

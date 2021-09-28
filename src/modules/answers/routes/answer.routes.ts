@@ -5,11 +5,7 @@ import AnswersController from '../controllers/AnswersController';
 const answerRouter = Router();
 const answersControllers = new AnswersController();
 
-answerRouter.post(
-  '/:testId/:questionId',
-  middlewareAuth,
-  answersControllers.CreateAnswer,
-);
+answerRouter.post('/:testId', middlewareAuth, answersControllers.CreateAnswer);
 answerRouter.get(
   '/:testId/:questionId',
   middlewareAuth,

@@ -8,7 +8,7 @@ interface IRequest {
   question: string;
   categorie: string;
   type: number;
-  testId: number;
+  testId: any;
   userId: number;
 }
 
@@ -40,7 +40,7 @@ class CreateQuestionService {
       question,
       categorie,
       type,
-      testId,
+      test: testId,
     });
 
     await questionRepository.save(questionCreated);
