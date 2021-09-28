@@ -3,6 +3,7 @@ import questionRouter from '@modules/questions/routes/question.routes';
 import testRouter from '@modules/tests/routes/test.routes';
 import userRouter from '@modules/users/routes/user.routes';
 import answerRouter from '@modules/answers/routes/answer.routes';
+import sentTestRouter from '@modules/sentTests/routes/sentTest.routes';
 
 const routes = Router();
 
@@ -10,5 +11,6 @@ routes.use('/questions', questionRouter);
 routes.use('/tests', testRouter);
 routes.use('/users', userRouter);
 routes.use('/answers', answerRouter);
+routes.use('/senttests', sentTestRouter);
 
 export default routes;
