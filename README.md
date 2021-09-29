@@ -65,10 +65,6 @@
 - Vá para a pasta da aplicação
   ```sh
     cd testsAPI
-- Instale as dependências
-  ```sh
-    npm install
-  ```
 - Configure o arquivo .env (use o arquivo .env.example como guia)
 
 ## Instruções para iniciar o projeto
