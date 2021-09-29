@@ -22,8 +22,9 @@
   - [Listar Todas as Alternativas](#Listar-Todas-as-Alternativas)
   - [Atualizar Uma Alternativa](#Atualizar-Uma-Alternativa)
   - [Deletar Uma Alternativa](#Deletar-Uma-Alternativa)
+  - [Enviar Uma Prova](#Enviar-Uma-Prova)
 
-
+<br>
 
 ## Descrição
 
@@ -71,6 +72,10 @@
 - Configure o arquivo .env (use o arquivo .env.example como guia)
 
 ## Instruções para iniciar o projeto
+
+##### Obs: Descobri um bug de última hora, ao clonar o projeto e rodar pela primeira vez está ocorrendo algum problema de autenticação, em decorrer do tempo não consegui arrumar ele, porém ao rodar uma segunda vez ele funciona normalmente.
+
+<br>
 
 - Comando para iniciar
   ```sh
@@ -548,4 +553,39 @@
   - Exemplo `response body`
     ```json
       No content
+    ```
+
+### **Enviar Uma Prova**
+##### `POST` /api/senttests/:testId
+  <br/>
+
+  Esse endpoint é responsável por enviar um email com o link do teste.
+
+  *Obs: Não há funcionamento prática nessa rota além de enviar um email com um link ficticio*
+
+  - Exemplo `request headers`
+    ```json
+      {
+        "Authorization": "(Bearer Token)"
+      }
+    ```
+
+  - Exemplo `request body`
+    ```json
+      {
+        "receiverEmail": "tiagopaz.dev@gmail.com"
+      }
+    ```
+
+  - Exemplo `response body`
+    ```json
+      {
+        "sender": 1,
+        "receiver": "tiagopaz.dev@gmail.com",
+        "testId": 1,
+        "token": "token",
+        "id": 1,
+        "created_at": "2021-09-28T20:21:58.724Z",
+        "updated_at": "2021-09-28T20:21:58.724Z"
+      }
     ```
