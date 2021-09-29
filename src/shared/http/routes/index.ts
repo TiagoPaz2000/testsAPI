@@ -7,10 +7,10 @@ import sentTestRouter from '@modules/sentTests/routes/sentTest.routes';
 
 const routes = Router();
 
-routes.use('/questions', questionRouter);
-routes.use('/tests', testRouter);
-routes.use('/users', userRouter);
-routes.use('/answers', answerRouter);
-routes.use('/senttests', sentTestRouter);
+routes.use('/api/questions', questionRouter);
+routes.use('/api/tests', testRouter);
+routes.use('/api/users', userRouter);
+routes.use('/api/answers', answerRouter);
+routes.use('/api/senttests', sentTestRouter);
 
 export default routes;
