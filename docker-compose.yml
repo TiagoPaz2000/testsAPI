@@ -9,7 +9,7 @@ services:
       - '3001:3001'
     volumes:
       - .:/home/node/app
-    depends_on:
+    links:
       - db
     
   db:
