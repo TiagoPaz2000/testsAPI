@@ -5,7 +5,7 @@
 - [Descrição](#Descrição)
 - [Pré-requisitos](#Pre-requisitos)
   - [Instalação](#Instalação)
-  - [Intruções para iniciar o projeto](#Intruções-para-iniciar-o-projeto)
+  - [Instruções para iniciar o projeto](#Intruções-para-iniciar-o-projeto)
 - [Documentação](#Documentação)
   - [Registrar Usuário](#Registrar-Usuário)
   - [Login](#Login)
@@ -27,7 +27,7 @@
 
 ## Descrição
 
-**Desafio**: O objetivo dessa aplicação, é realizar todo o fluxo CRUD de provas e questões. Os conceitos aplicados foram:
+**Desafio**: O objetivo dessa aplicação, é realizar todo o fluxo CRUD de provas e questões. Os conhecimentos aplicados foram:
 
 - Arquitetura REST;
 - Conceitos de SOLID;
@@ -37,7 +37,7 @@
 - Serialização;
 - Uso de containers (Docker).
 
-## Pre-requisitos
+## Pré-requisitos
 
 - `docker`
   ```sh
@@ -70,7 +70,7 @@
   ```
 - Configure o arquivo .env (use o arquivo .env.example como guia)
 
-## Intruções para iniciar o projeto
+## Instruções para iniciar o projeto
 
 - Comando para iniciar
   ```sh
